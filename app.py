@@ -1,18 +1,18 @@
 from flask import Flask, render_template_string, request
 from openai import OpenAI
+import os   # needed for environment variable
 
-# 1) 🔑 OpenAI key – put YOUR key between the quotes
-client = OpenAI(api_key="OPENAI_API_KEY")
+# Read the key from Render environment
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+client = OpenAI(api_key=OPENAI_API_KEY)
 
 app = Flask(__name__)
 
-# 2) 🧾 PayPal links for each plan
+# PayPal links
 PAYPAL_STARTER = "https://paypal.me/3lissw/9"
 PAYPAL_TRANSFORM = "https://paypal.me/3lissw/29"
 PAYPAL_VIP = "https://paypal.me/3lissw/79"
 
-PAGE = """
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -692,5 +692,6 @@ if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 8000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
